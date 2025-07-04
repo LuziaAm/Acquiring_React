@@ -1,0 +1,219 @@
+# netlify.toml - Configuração para deploy no Netlify
+
+[build]
+  # Diretório base do projeto
+  base = "."
+  
+  # Comando para build
+  command = "npm run build"
+  
+  # Diretório de saída do build
+  publish = "build"
+  
+  # Instalar dependências automaticamente
+  auto_install = true
+
+# Configurações de ambiente para build
+[build.environment]
+  NODE_ENV = "production"
+  REACT_APP_BUILD_TIME = "build-time"
+  REACT_APP_NETLIFY_DEPLOY = "true"
+  CI = "true"
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+
+# Context-specific build settings
+[context.production]
+  command = "npm run build"
+  
+[context.production.environment]
+  NODE_ENV = "production"
+  REACT_APP_ENVIRONMENT = "production"
+
+[context.deploy-preview]
+  command = "npm run build"
+  
+[context.deploy-preview.environment]
+  NODE_ENV = "production"
+  REACT_APP_ENVIRONMENT = "preview"
+
+[context.branch-deploy]
+  command = "npm run build"
+  
+[context.branch-deploy.environment]
+  NODE_ENV = "production"
+  REACT_APP_ENVIRONMENT = "staging"
+
+# Configurações de desenvolvimento local
+[context.dev]
+  command = "npm start"
+  port = 3000
+  targetPort = 3000
+  
+[context.dev.environment]
+  NODE_ENV = "development"
+
+# Redirecionamentos para SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  
+# Redirecionamentos específicos
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/dashboard"
+  to = "/?tab=dashboard"
+  status = 302
+  
+[[redirects]]
+  from = "/candidates"
+  to = "/?tab=candidates"
+  status = 302
+  
+[[redirects]]
+  from = "/jobs"
+  to = "/?tab=jobs"
+  status = 302
+  
+[[redirects]]
+  from = "/register"
+  to = "/?tab=register"
+  status = 302
+
+# Configurações de cabeçalhos para segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+
+# Cache para assets estáticos
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache para service worker
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Service-Worker-Allowed = "/"
+
+# Cache para manifest.json
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=86400"
+
+# Cache para imagens
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+    
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Cache para fontes
+[[headers]]
+  for = "/*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Configurações de Functions (para futuras APIs)
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  
+# Configurações de Edge Functions
+[edge_functions]
+  directory = "netlify/edge-functions"
+
+# Configurações de Forms (se necessário)
+[forms]
+  default_action = "/success"
+
+# Configurações de processamento de arquivos
+[build.processing]
+  skip_processing = false
+  
+[build.processing.css]
+  bundle = true
+  minify = true
+  
+[build.processing.js]
+  bundle = true
+  minify = true
+  
+[build.processing.html]
+  pretty_urls = true
+  canonical_urls = true
+
+# Configurações de plugins
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  
+  [plugins.inputs]
+    buildDir = "build"
+    
+[[plugins]]
+  package = "netlify-plugin-lighthouse"
+  
+  [plugins.inputs]
+    audits = ["performance", "accessibility", "best-practices", "seo"]
+    
+[[plugins]]
+  package = "@netlify/plugin-functions-install-core"
+
+# Configurações de split testing (A/B testing)
+[split_testing]
+  default_branch = "main"
+
+# Configurações de Large Media (para arquivos grandes)
+[lfs]
+  enabled = false
+
+# Configurações de desenvolvimento local
+[dev]
+  framework = "create-react-app"
+  command = "npm start"
+  targetPort = 3000
+  port = 8888
+  publish = "build"
+  autoLaunch = true
+  
+# Configurações de monitoramento
+[template.environment]
+  REACT_APP_NETLIFY_SITE_ID = "site-id"
+  REACT_APP_NETLIFY_DEPLOY_ID = "deploy-id"
+
+# Configurações de segurança adicional
+[security]
+  enable_ssl = true
+  force_ssl = true
+  hsts_header = "max-age=31536000; includeSubDomains"

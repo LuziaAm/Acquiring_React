@@ -1,0 +1,413 @@
+/* src/App.css */
+
+.App {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+/* Estilos específicos para o sistema de recrutamento */
+
+/* Layout da sidebar e conteúdo principal */
+.recruitment-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.recruitment-sidebar {
+  width: 16rem; /* 256px */
+  flex-shrink: 0;
+}
+
+.recruitment-main {
+  flex: 1;
+  margin-left: 16rem; /* 256px */
+  min-height: 100vh;
+}
+
+/* Cards de métricas no dashboard */
+.metric-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease-in-out;
+}
+
+.metric-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-color: #d1d5db;
+}
+
+/* Cards de candidatos */
+.candidate-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease-in-out;
+}
+
+.candidate-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  border-color: #d1d5db;
+}
+
+/* Cards de vagas */
+.job-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease-in-out;
+}
+
+.job-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+  border-color: #d1d5db;
+}
+
+/* Avatars dos candidatos */
+.candidate-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.candidate-avatar-large {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.125rem;
+}
+
+/* Cores dos avatars */
+.avatar-blue {
+  background-color: #3b82f6;
+}
+
+.avatar-green {
+  background-color: #10b981;
+}
+
+.avatar-orange {
+  background-color: #f59e0b;
+}
+
+.avatar-purple {
+  background-color: #8b5cf6;
+}
+
+.avatar-red {
+  background-color: #ef4444;
+}
+
+.avatar-indigo {
+  background-color: #6366f1;
+}
+
+/* Skills tags */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin: 0.125rem;
+}
+
+.skill-tag-blue {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.skill-tag-green {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.skill-tag-orange {
+  background-color: #fed7aa;
+  color: #9a3412;
+}
+
+.skill-tag-red {
+  background-color: #fecaca;
+  color: #991b1b;
+}
+
+.skill-tag-purple {
+  background-color: #e9d5ff;
+  color: #7c2d12;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-active {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-paused {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.status-closed {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.level-junior {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.level-pleno {
+  background-color: #e9d5ff;
+  color: #7c2d12;
+}
+
+.level-senior {
+  background-color: #fed7aa;
+  color: #9a3412;
+}
+
+/* Compatibilidade scores */
+.compatibility-score {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1.125rem;
+  min-width: 4rem;
+}
+
+.compatibility-high {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.compatibility-medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.compatibility-low {
+  background-color: #fecaca;
+  color: #991b1b;
+}
+
+/* Animações específicas */
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Navegação ativa na sidebar */
+.nav-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.nav-button-active {
+  background-color: #3b82f6;
+  color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.nav-button-inactive {
+  color: #374151;
+}
+
+.nav-button-inactive:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+/* Grid layouts responsivos */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .recruitment-main {
+    margin-left: 0;
+  }
+  
+  .recruitment-sidebar {
+    position: fixed;
+    top: 0;
+    left: -16rem;
+    z-index: 50;
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .recruitment-sidebar.open {
+    left: 0;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .candidate-card,
+  .job-card,
+  .metric-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .compatibility-score {
+    font-size: 1rem;
+    padding: 0.375rem 0.75rem;
+    min-width: 3rem;
+  }
+  
+  .skill-tag {
+    font-size: 0.6875rem;
+    padding: 0.1875rem 0.5rem;
+  }
+  
+  .candidate-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Estados de loading */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Melhorias de acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus states melhorados */
+.focus-ring:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Transições suaves para modo escuro futuro */
+* {
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}

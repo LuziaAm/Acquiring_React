@@ -1,0 +1,197 @@
+{
+    "version": 2,
+    "name": "recruitai",
+    "alias": ["recruitai.vercel.app", "www.recruitai.com"],
+    "regions": ["gru1", "iad1"],
+    "build": {
+      "env": {
+        "NODE_ENV": "production",
+        "REACT_APP_VERSION": "@version",
+        "REACT_APP_BUILD_TIME": "@build-time"
+      }
+    },
+    "buildCommand": "npm run build",
+    "outputDirectory": "build",
+    "installCommand": "npm install",
+    "devCommand": "npm start",
+    "framework": "create-react-app",
+    "functions": {
+      "app/api/**/*.js": {
+        "runtime": "nodejs18.x",
+        "memory": 1024,
+        "maxDuration": 30
+      }
+    },
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
+        "src": "/sitemap.xml",
+        "dest": "/sitemap.xml"
+      },
+      {
+        "src": "/robots.txt",
+        "dest": "/robots.txt"
+      },
+      {
+        "src": "/manifest.json",
+        "dest": "/manifest.json"
+      },
+      {
+        "src": "/favicon.ico",
+        "dest": "/favicon.ico"
+      },
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot))",
+        "headers": {
+          "Cache-Control": "public, max-age=31536000, immutable"
+        }
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ],
+    "headers": [
+      {
+        "source": "/(.*)",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "X-XSS-Protection",
+            "value": "1; mode=block"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(), microphone=(), geolocation=()"
+          }
+        ]
+      },
+      {
+        "source": "/api/(.*)",
+        "headers": [
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "*"
+          },
+          {
+            "key": "Access-Control-Allow-Methods",
+            "value": "GET, POST, PUT, DELETE, OPTIONS"
+          },
+          {
+            "key": "Access-Control-Allow-Headers",
+            "value": "Content-Type, Authorization"
+          }
+        ]
+      },
+      {
+        "source": "/service-worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=0, must-revalidate"
+          },
+          {
+            "key": "Service-Worker-Allowed",
+            "value": "/"
+          }
+        ]
+      },
+      {
+        "source": "/manifest.json",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/manifest+json"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/home",
+        "destination": "/",
+        "permanent": true
+      },
+      {
+        "source": "/dashboard",
+        "destination": "/?tab=dashboard",
+        "permanent": false
+      },
+      {
+        "source": "/candidates",
+        "destination": "/?tab=candidates",
+        "permanent": false
+      },
+      {
+        "source": "/jobs",
+        "destination": "/?tab=jobs", 
+        "permanent": false
+      },
+      {
+        "source": "/register",
+        "destination": "/?tab=register",
+        "permanent": false
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "/api/candidates",
+        "destination": "/api/candidates.js"
+      },
+      {
+        "source": "/api/jobs",
+        "destination": "/api/jobs.js"
+      },
+      {
+        "source": "/api/compatibility/:candidateId/:jobId",
+        "destination": "/api/compatibility.js?candidateId=$candidateId&jobId=$jobId"
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "github": {
+      "enabled": true,
+      "autoAlias": true,
+      "autoJobCancelation": true,
+      "silent": false
+    },
+    "env": {
+      "REACT_APP_VERCEL_URL": "@vercel-url",
+      "REACT_APP_VERCEL_GIT_COMMIT_SHA": "@vercel-git-commit-sha",
+      "REACT_APP_VERCEL_GIT_COMMIT_MESSAGE": "@vercel-git-commit-message",
+      "REACT_APP_VERCEL_GIT_COMMIT_AUTHOR_NAME": "@vercel-git-commit-author-name"
+    },
+    "public": true,
+    "crons": [
+      {
+        "path": "/api/cleanup",
+        "schedule": "0 2 * * *"
+      },
+      {
+        "path": "/api/backup",
+        "schedule": "0 3 * * 0"
+      }
+    ]
+  }
